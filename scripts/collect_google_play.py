@@ -54,8 +54,8 @@ def main() -> None:
             "version": version,
             "first_seen_at": checked_at,
             "package": PACKAGE,
-            "source": SOURCE_URL,
-            "archive_status": "awaiting_official_device_export",
+            "discovery_source": SOURCE_URL,
+            "archive_status": "awaiting_mirror_download_and_signature_verification",
         }
     )
     write(RELEASES_PATH, releases)

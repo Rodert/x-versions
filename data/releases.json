@@ -3,7 +3,7 @@
     "version": "12.15.2-release.0",
     "first_seen_at": "2026-08-13T14:43:55Z",
     "package": "com.twitter.android",
-    "source": "https://play.google.com/store/apps/details?id=com.twitter.android",
-    "archive_status": "awaiting_official_device_export"
+    "discovery_source": "https://play.google.com/store/apps/details?id=com.twitter.android",
+    "archive_status": "awaiting_mirror_download_and_signature_verification"
   }
 ]

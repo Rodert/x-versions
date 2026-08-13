@@ -1,23 +1,30 @@
-# Archiving an official X Android release
+# Archiving an X Android release
 
-X is distributed through Google Play as an Android App Bundle. A device installation normally includes a base APK and one or more configuration or feature split APKs. Archive the complete set.
+## Source policy
 
-## Requirements
+Google Play (`com.twitter.android`) is the official source used for daily version discovery. APKMirror is a binary mirror used only when Google Play has no public download URL. A mirror download is never described as an official download.
 
-- A device where X was installed or updated through the official Google Play Store.
-- Android Platform Tools (`adb`).
-- Android Build Tools (`apksigner`).
-- GitHub CLI (`gh`) authenticated with permission to create releases.
-- The SHA-256 fingerprint of X's official app-signing certificate, obtained and reviewed independently.
+The archive script fails closed: it will not create a release unless every extracted APK has package name `com.twitter.android` and its signing certificate SHA-256 matches the expected X certificate supplied by the maintainer.
 
-## Export and publish
+## Required release evidence
 
-Enable USB debugging, connect the device, and run:
+Every release includes:
+
+- `provenance.json`: mirror name, source page, direct download URL, collection time, package, version, expected certificate fingerprint, and validation result.
+- `checksums.sha256`: SHA-256 checksum for every APK and the published ZIP.
+- `signature-report.txt`: `apksigner` output for each APK.
+- The complete APK set in a ZIP, including base and split APKs.
+
+## Download, verify, publish
+
+Download an `.apk` or `.apkm` manually from its APKMirror release page, then run:
 
 ```sh
-X_EXPECTED_CERT_SHA256='OFFICIAL_CERTIFICATE_SHA256' scripts/archive-from-device.sh
+scripts/archive-from-mirror.sh \
+  --artifact ~/Downloads/x.apkm \
+  --source-page 'https://www.apkmirror.com/apk/x-corp/x/' \
+  --source-download 'https://www.apkmirror.com/apk/x-corp/x/.../download/' \
+  --expected-cert-sha256 'X_OFFICIAL_CERTIFICATE_SHA256'
 ```
 
-The script reads every path returned by `adb shell pm path com.twitter.android`, verifies the package and signer certificate for each APK, writes a SHA-256 manifest and provenance record, then creates a GitHub Release.
-
-Do not use an APK obtained from a third-party download site. The expected certificate fingerprint is intentionally required as an input: it prevents treating an unknown signing key as official.
+Requirements: `aapt`, `apksigner`, `jq`, `unzip`, `zip`, `shasum`, and authenticated GitHub CLI (`gh`). Obtain the expected certificate fingerprint independently from a known official X installation before publishing.

@@ -91,7 +91,7 @@
     <main class="shell">
       <p class="eyebrow">OFFICIAL RELEASE TRACKER</p>
       <h1>X Android 官方版本归档</h1>
-      <p class="intro">每日检查 Google Play 上的 X 官方版本。归档安装包仅接受从官方 Play 安装设备导出的完整 split APK 集合。</p>
+      <p class="intro">每日检查 Google Play 上的 X 官方版本。二进制来自 APKMirror 时，必须经过包名、完整 split APK 和 X 官方签名证书校验后才会发布。</p>
 
       <section class="metrics" aria-label="归档摘要">
         <div class="metric"><div class="metric-label">当前公开版本</div><div class="metric-value" id="latest-version">读取中</div></div>
@@ -126,14 +126,14 @@
       </section>
 
       <footer>
-        本站只使用 X 官方下载说明与 Google Play 作为版本来源，不从第三方 APK 镜像下载。
+        Google Play 用于版本发现；APKMirror 仅作为二进制镜像。每个发布版本均附带来源、SHA-256、签名证书和验证报告。
         <div class="footer-links"><a href="https://help.x.com/en/using-x/download-the-x-app" target="_blank" rel="noreferrer">X 官方下载说明 <span class="external">↗</span></a><a href="https://github.com/Rodert/x-versions" target="_blank" rel="noreferrer">GitHub Repository <span class="external">↗</span></a></div>
       </footer>
     </main>
     <script>
       const date = (value) => value ? new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Shanghai' }).format(new Date(typeof value === 'number' ? value * 1000 : value)) : '-';
       const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]);
-      const status = (value) => value === 'awaiting_official_device_export' ? '等待官方设备导出' : value;
+      const status = (value) => value === 'awaiting_mirror_download_and_signature_verification' ? '等待镜像下载与签名校验' : value;
 
       async function load() {
         const [releases, checks] = await Promise.all([
@@ -145,7 +145,7 @@
         document.querySelector('#latest-version').textContent = latest?.version || '-';
         document.querySelector('#release-count').textContent = `${releases.length} 个`;
         document.querySelector('#last-check').textContent = date(lastCheck?.checked_at);
-        document.querySelector('#release-rows').innerHTML = releases.length ? [...releases].reverse().map((release) => `<tr><td class="version">${escapeHtml(release.version)}</td><td>${date(release.first_seen_at)}</td><td><a href="${escapeHtml(release.source)}" target="_blank" rel="noreferrer">Google Play ↗</a></td><td><span class="status"><span class="dot"></span>${escapeHtml(status(release.archive_status))}</span></td></tr>`).join('') : '<tr><td class="empty" colspan="4">尚未发现版本</td></tr>';
+        document.querySelector('#release-rows').innerHTML = releases.length ? [...releases].reverse().map((release) => `<tr><td class="version">${escapeHtml(release.version)}</td><td>${date(release.first_seen_at)}</td><td><a href="${escapeHtml(release.discovery_source)}" target="_blank" rel="noreferrer">Google Play ↗</a></td><td><span class="status"><span class="dot"></span>${escapeHtml(status(release.archive_status))}</span></td></tr>`).join('') : '<tr><td class="empty" colspan="4">尚未发现版本</td></tr>';
         document.querySelector('#check-rows').innerHTML = checks.length ? [...checks].reverse().slice(0, 20).map((check) => `<tr><td>${date(check.checked_at)}</td><td class="version">${escapeHtml(check.version)}</td><td>${date(check.play_updated_at)}</td></tr>`).join('') : '<tr><td class="empty" colspan="3">尚无检查记录</td></tr>';
       }
       load().catch(() => { document.querySelector('#release-rows').innerHTML = '<tr><td class="empty" colspan="4">无法加载版本索引</td></tr>'; });
