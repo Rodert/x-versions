@@ -26,5 +26,12 @@
     "package": "com.twitter.android",
     "discovery_source": "https://play.google.com/store/apps/details?id=com.twitter.android",
     "archive_status": "awaiting_mirror_download_and_signature_verification"
+  },
+  {
+    "version": "12.20.5-prod.01",
+    "first_seen_at": "2026-08-28T14:21:33Z",
+    "package": "com.twitter.android",
+    "discovery_source": "https://play.google.com/store/apps/details?id=com.twitter.android",
+    "archive_status": "awaiting_mirror_download_and_signature_verification"
   }
 ]
