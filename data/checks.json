@@ -215,5 +215,12 @@
     "version": "12.25.0-prod.01",
     "play_updated_at": 1788978068,
     "source": "https://play.google.com/store/apps/details?id=com.twitter.android"
+  },
+  {
+    "checked_at": "2026-09-12T07:09:57Z",
+    "package": "com.twitter.android",
+    "version": "12.25.0-prod.01",
+    "play_updated_at": 1789173524,
+    "source": "https://play.google.com/store/apps/details?id=com.twitter.android"
   }
 ]
