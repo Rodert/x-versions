@@ -187,5 +187,12 @@
     "package": "com.twitter.android",
     "discovery_source": "https://play.google.com/store/apps/details?id=com.twitter.android",
     "archive_status": "awaiting_mirror_download_and_signature_verification"
+  },
+  {
+    "version": "12.42.0-prod.01",
+    "first_seen_at": "2026-11-12T09:51:23Z",
+    "package": "com.twitter.android",
+    "discovery_source": "https://play.google.com/store/apps/details?id=com.twitter.android",
+    "archive_status": "awaiting_mirror_download_and_signature_verification"
   }
 ]
