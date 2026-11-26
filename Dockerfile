@@ -9,6 +9,7 @@ RUN npm run build
 FROM node:22-alpine
 WORKDIR /app
 ENV NODE_ENV=production
+COPY package.json ./
 COPY --from=build /app/dist ./dist
 COPY scripts/server.mjs ./scripts/server.mjs
 EXPOSE 3000
