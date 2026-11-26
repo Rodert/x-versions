@@ -6,6 +6,10 @@ COPY index.html ./
 COPY scripts ./scripts
 RUN npm run build
 
-FROM nginx:1.27-alpine
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
+FROM node:22-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=build /app/dist ./dist
+COPY scripts/server.mjs ./scripts/server.mjs
+EXPOSE 3000
+CMD ["npm", "start"]
