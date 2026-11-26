@@ -2,7 +2,8 @@ FROM node:22-alpine AS build
 
 WORKDIR /app
 COPY package.json ./
-COPY index.html scripts/build.mjs ./
+COPY index.html ./
+COPY scripts ./scripts
 RUN npm run build
 
 FROM nginx:1.27-alpine
