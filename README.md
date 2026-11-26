@@ -2,6 +2,8 @@
 
 收集和记录 X（原 Twitter）Android 官方版本，包名为 `com.twitter.android`。
 
+项目主页是一个轻量静态页。使用 `npm run build` 生成到 `dist/`，GitHub Pages 工作流会自动构建并部署该目录。
+
 ## 官方来源
 
 - [X 官方下载说明](https://help.x.com/en/using-x/download-the-x-app)
@@ -16,6 +18,7 @@
 - [`data/releases.json`](data/releases.json)：发现到的官方版本及归档状态。
 - [`data/checks.json`](data/checks.json)：每日检查记录。
 - [`scripts/collect_google_play.py`](scripts/collect_google_play.py)：采集 Google Play 版本。
+- [`scripts/build.mjs`](scripts/build.mjs)：构建静态主页。
 - [`scripts/archive-from-mirror.sh`](scripts/archive-from-mirror.sh)：校验 APKMirror 下载的 APK/APKM 并发布。
 - [`docs/ARCHIVING.md`](docs/ARCHIVING.md)：二进制归档操作说明。
 

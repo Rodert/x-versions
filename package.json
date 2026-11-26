@@ -1,0 +1,9 @@
+{
+  "name": "x-versions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple archive site for X Android app versions.",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
